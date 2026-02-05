@@ -1,0 +1,96 @@
+some minor edits , take a final look + review and post bhai 
+@startuml
+!theme spacelab
+title <size:20><color:#1B5E20>SCB DAC – Transaction Control, Status & Failure Visibility</color></size>
+caption <color:#1B5E20>Single E2E_ID • COP-based stuck detection • Clear request + status flows</color>
+ 
+ 
+skinparam roundcorner 12
+skinparam shadowing false
+skinparam linetype polyline
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+ 
+ 
+skinparam component {
+  FontColor #1B5E20
+  BorderColor #2E7D32
+}
+skinparam database {
+  FontColor #1B5E20
+  BorderColor #2E7D32
+}
+skinparam note {
+  FontColor #1B5E20
+  BorderColor #AED581
+}
+skinparam ArrowColor #1B5E20
+skinparam ArrowFontColor #1B5E20
+ 
+skinparam nodesep 80
+skinparam ranksep 60
+ 
+' --- System Components ---
+component "Straight2Bank\n(S2B)" as S2B #F1F8E9
+component "DLT\n(E2E_ID Control)" as DLT #EAF7EA
+component "FSS Business Checks+ \n(Command Center)" as FSS #EEF6FF
+component "Vendor Zodia Custody\n(Execution + Status)" as ZODIA #F8F5FF
+component  "Public Blockchain\n" as CHAIN #F5F5F5
+component "COP\n(E2E Tracking • SLA • Stuck Detection)" as COP #FFFDE7
+ 
+S2B -[hidden]down- DLT
+DLT -[hidden]down- FSS
+FSS -[hidden]down- ZODIA
+ZODIA -[hidden]down- CHAIN
+S2B -[hidden]right- COP
+ 
+ 
+S2B --> DLT : 1. Initiate TX (E2E_ID)
+DLT --> FSS : 2. Outgoing Transfer + \n status code
+FSS --> ZODIA : 3. Send transfer request \n (post internal screening) 
+ZODIA --> CHAIN : 4. Broadcast / Settle
+ 
+ZODIA --> DLT : 5. Transfer Execution Status
+DLT --> S2B : 6. Client Status Update
+DLT --> FSS : 7. Ops Status Update
+ 
+ 
+S2B ..> COP : request timestamp
+DLT ..> COP : state transitions
+FSS ..> COP : approvals / actions
+ZODIA ..> COP : vendor status
+ 
+note left of DLT
+<b>Stuck @ DLT Detection</b>
+If Step 1 logged
+but Step 2 not within SLA
+→ Automatic COP alert
+ 
+---
+// Controls:
+// Volume / velocity checks
+// Pattern / anomaly checks
+// All emit events to COP
+end note
+ 
+note right of ZODIA
+<b>Vendor Visibility</b>
+Blockchain confirmation
+reflected via Zodia → DLT
+end note
+ 
+note right of COP
+<b>Failure Pinpointing</b>
+COP correlates via E2E_ID:
+- Last successful hop
+- Time in state
+- Missing callback
+- SLA breach
+end note
+ 
+note bottom of COP
+<b>Command Center View</b>
+Single-pane journey tracking
+for Ops & Risk teams
+end note
+@enduml
