@@ -1,8 +1,114 @@
-SELECT transfer_id, client_name, network, txn_info_id, tps_comp_id, transfer_flow, entity, created_by, created_date, last_updated_by, last_updated_date, amount, asset_type, unit_amount, customer_reference, transfer_type, transaction_date, ledger_reference, usd_equivalent, usd_calculation_datetime, event_timestamp, transfer_dto, transfer_subtype, vasp_received, true_mismatch
+{
+"holdingsDateRange": "2025-04-22 :: 2026-01-22",
+"fundFamilies": [
+   {
+     "fundFamilyId": "HK0675",
+     "investors": [
+       {
+         "investorId": "104523",
+         "fundISIN": ["HK0675AHK002", "HK0675AHK004"]
+       },
+       {
+         "investorId": "104526",
+         "fundISIN": ["HK0675AHK002"]
+       }
+     ]
+   },
+   {
+     "fundFamilyId": "HK0688",
+     "investors": [
+       {
+         "investorId": "104530",
+         "fundISIN": ["HK0688AHK002"]
+       }
+     ]
+   }
+]
+}
 
-	FROM fssservices_fssdac.fss_dac_transfers;
- 
-SELECT balance_id, wallet_refid, asset_type, bal_amnt, bal_units, bal_amnt_usd, incoming_balance, incoming_balance_units, incoming_balance_usd, outgoing_balance, outgoing_balance_units, outgoing_balance_usd, ledger_balance, ledger_balance_units, ledger_balance_usd, entity, created_by, created_date, last_updated_by, last_updated_date
 
-	FROM fssservices_fssdac.fss_dac_wallet_asset_balances;
- 
+
+response :
+
+
+{
+   "InvestorBalanceNotification":{
+      "Metadata":{
+         "TrackingID":"ffaac051-ed78-4b6a-a266-ff21f1f9c41b",
+         "ChannelId":"FundsDLT",
+         "MessageCreationDateTime":null
+      },
+      "InvestorInfo":[
+         {
+            "InvestorId":"201123",
+            "InvestorTradingId":"200169",
+            "DistributorName":"OSL",
+            "Position&NAVDetails":[
+               {
+                  "Shares":100,
+                  "SharesSettled":null,
+                  "Tax":100,
+                  "FundDate":"YYYY-MM-DD",
+                  "InceptionDate":"YYYY-MM-DD",
+                  "SourceFundId":"ABC12344""ShareClassName":"Class HKD",
+                  "ISIN":"HK0675IHK005",
+                  "Cusip":"098766754",
+                  "NAV":"10",
+                  "ClosingBalanceAmount":"10000",
+                  "AssetDate":"YYYY-MM-DD"
+               },
+               {
+                  "Shares":150,
+                  "SharesSettled":null,
+                  "Tax":100,
+                  "FundDate":"YYYY-MM-DD",
+                  "InceptionDate":"YYYY-MM-DD",
+                  "SourceFundId":"ABC12344""ShareClassName":"Class CNY",
+                  "ISIN":"HK0675ACY004",
+                  "Cusip":"098766757",
+                  "NAV":"10",
+                  "ClosingBalanceAmount":"15000",
+                  "AssetDate":"YYYY-MM-DD"
+               }
+            ]
+         },
+         {
+            "InvestorId":"201124",
+            "InvestorTradingId":"200168",
+            "DistributorName":"OSL",
+            "Position&NAVDetails":[
+               {
+                  "Shares":500,
+                  "SharesSettled":null,
+                  "Tax":100,
+                  "FundDate":"YYYY-MM-DD",
+                  "InceptionDate":"YYYY-MM-DD",
+                  "SourceFundId":"ABC12344""ShareClassName":"Class HKD",
+                  "ISIN":"HK0675IHK002",
+                  "Cusip":"098766755",
+                  "NAV":"10",
+                  "ClosingBalanceAmount":"50000",
+                  "AssetDate":"YYYY-MM-DD"
+               },
+               {
+                  "Shares":450,
+                  "SharesSettled":null,
+                  "Tax":100,
+                  "FundDate":"YYYY-MM-DD",
+                  "InceptionDate":"YYYY-MM-DD",
+                  "SourceFundId":"ABC12344""ShareClassName":"Class CNY",
+                  "ISIN":"HK0675ACY007",
+                  "Cusip":"098766759",
+                  "NAV":"10",
+                  "ClosingBalanceAmount":"4500",
+                  "AssetDate":"YYYY-MM-DD"
+               }
+            ]
+         }
+      ],
+      "Action":{
+         "ActionType":"Create/Modify",
+         "Status":null
+      }
+   }
+}
