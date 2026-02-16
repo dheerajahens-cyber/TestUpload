@@ -1,114 +1,16 @@
-{
-"holdingsDateRange": "2025-04-22 :: 2026-01-22",
-"fundFamilies": [
-   {
-     "fundFamilyId": "HK0675",
-     "investors": [
-       {
-         "investorId": "104523",
-         "fundISIN": ["HK0675AHK002", "HK0675AHK004"]
-       },
-       {
-         "investorId": "104526",
-         "fundISIN": ["HK0675AHK002"]
-       }
-     ]
-   },
-   {
-     "fundFamilyId": "HK0688",
-     "investors": [
-       {
-         "investorId": "104530",
-         "fundISIN": ["HK0688AHK002"]
-       }
-     ]
-   }
-]
-}
+There are 3 tables and their columns as below
+
+Table : fssservices_fssdac.fss_dac_transfers
+Columns : transfer_id, client_name, network, txn_info_id, tps_comp_id, transfer_flow, entity, created_by, created_date, last_updated_by, last_updated_date, amount, asset_type, unit_amount, customer_reference, transfer_type, transaction_date, ledger_reference, usd_equivalent, usd_calculation_datetime, event_timestamp, transfer_dto, transfer_subtype, vasp_received, true_mismatch
 
 
+Table : fssservices_fssdac.fss_dac_wallet_asset_balances;
+Columns : balance_id, wallet_refid, asset_type, bal_amnt, bal_units, bal_amnt_usd, incoming_balance, incoming_balance_units, incoming_balance_usd, outgoing_balance, outgoing_balance_units, outgoing_balance_usd, ledger_balance, ledger_balance_units, ledger_balance_usd, entity, created_by, created_date, last_updated_by, last_updated_date
 
-response :
+
+Table : fssservices_fssdac.fss_dac_wallet
+Columns : wallet_refid, fss_company_id, name, activity, crypto_curr, crypto_curr_ntwk, bal_amnt, bal_units, bal_amnt_usd, incoming_balance, incoming_balance_units, incoming_balance_usd, outgoing_balance, outgoing_balance_units, outgoing_balance_usd, wallet_status, da_wallet_id, da_wallet_status, wallet_tracking_id, kill_switch_status, da_deactivation_status, da_reactivation_status, reject_reason, status, da_status, action_type, ledger_balance, ledger_balance_units, ledger_balance_usd, da_company_id, status_code, entity, created_by, created_date, last_updated_by, last_updated_date, last_update, wallet_dormancy, wallet_dormancy_reason, event_timestamp, comments, investor_id
 
 
-{
-   "InvestorBalanceNotification":{
-      "Metadata":{
-         "TrackingID":"ffaac051-ed78-4b6a-a266-ff21f1f9c41b",
-         "ChannelId":"FundsDLT",
-         "MessageCreationDateTime":null
-      },
-      "InvestorInfo":[
-         {
-            "InvestorId":"201123",
-            "InvestorTradingId":"200169",
-            "DistributorName":"OSL",
-            "Position&NAVDetails":[
-               {
-                  "Shares":100,
-                  "SharesSettled":null,
-                  "Tax":100,
-                  "FundDate":"YYYY-MM-DD",
-                  "InceptionDate":"YYYY-MM-DD",
-                  "SourceFundId":"ABC12344""ShareClassName":"Class HKD",
-                  "ISIN":"HK0675IHK005",
-                  "Cusip":"098766754",
-                  "NAV":"10",
-                  "ClosingBalanceAmount":"10000",
-                  "AssetDate":"YYYY-MM-DD"
-               },
-               {
-                  "Shares":150,
-                  "SharesSettled":null,
-                  "Tax":100,
-                  "FundDate":"YYYY-MM-DD",
-                  "InceptionDate":"YYYY-MM-DD",
-                  "SourceFundId":"ABC12344""ShareClassName":"Class CNY",
-                  "ISIN":"HK0675ACY004",
-                  "Cusip":"098766757",
-                  "NAV":"10",
-                  "ClosingBalanceAmount":"15000",
-                  "AssetDate":"YYYY-MM-DD"
-               }
-            ]
-         },
-         {
-            "InvestorId":"201124",
-            "InvestorTradingId":"200168",
-            "DistributorName":"OSL",
-            "Position&NAVDetails":[
-               {
-                  "Shares":500,
-                  "SharesSettled":null,
-                  "Tax":100,
-                  "FundDate":"YYYY-MM-DD",
-                  "InceptionDate":"YYYY-MM-DD",
-                  "SourceFundId":"ABC12344""ShareClassName":"Class HKD",
-                  "ISIN":"HK0675IHK002",
-                  "Cusip":"098766755",
-                  "NAV":"10",
-                  "ClosingBalanceAmount":"50000",
-                  "AssetDate":"YYYY-MM-DD"
-               },
-               {
-                  "Shares":450,
-                  "SharesSettled":null,
-                  "Tax":100,
-                  "FundDate":"YYYY-MM-DD",
-                  "InceptionDate":"YYYY-MM-DD",
-                  "SourceFundId":"ABC12344""ShareClassName":"Class CNY",
-                  "ISIN":"HK0675ACY007",
-                  "Cusip":"098766759",
-                  "NAV":"10",
-                  "ClosingBalanceAmount":"4500",
-                  "AssetDate":"YYYY-MM-DD"
-               }
-            ]
-         }
-      ],
-      "Action":{
-         "ActionType":"Create/Modify",
-         "Status":null
-      }
-   }
-}
+Write a postgre sql query to clientWalletId from transfer_dto column which is of jsonb object type from  Table : fssservices_fssdac.fss_dac_transfers, using this clientWalletId query Table : fssservices_fssdac.fss_dac_wallet to get wallet_refid from 
+table : fssservices_fssdac.fss_dac_wallet, using wallet_refid and asset_type, summarize the daily transactions in fssservices_fssdac.fss_dac_transfers and reconcile it with cloumn bal_amnt in Table : fssservices_fssdac.fss_dac_wallet_asset_balances, where one wallet - column : clientWalletId, can be mapped to multiple assets - Column : asset_type, and summarise it for daily blances and highlight any mismatch
