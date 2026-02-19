@@ -1,16 +1,13 @@
-There are 3 tables and their columns as below
-
-Table : fssservices_fssdac.fss_dac_transfers
-Columns : transfer_id, client_name, network, txn_info_id, tps_comp_id, transfer_flow, entity, created_by, created_date, last_updated_by, last_updated_date, amount, asset_type, unit_amount, customer_reference, transfer_type, transaction_date, ledger_reference, usd_equivalent, usd_calculation_datetime, event_timestamp, transfer_dto, transfer_subtype, vasp_received, true_mismatch
-
-
-Table : fssservices_fssdac.fss_dac_wallet_asset_balances;
-Columns : balance_id, wallet_refid, asset_type, bal_amnt, bal_units, bal_amnt_usd, incoming_balance, incoming_balance_units, incoming_balance_usd, outgoing_balance, outgoing_balance_units, outgoing_balance_usd, ledger_balance, ledger_balance_units, ledger_balance_usd, entity, created_by, created_date, last_updated_by, last_updated_date
-
-
-Table : fssservices_fssdac.fss_dac_wallet
-Columns : wallet_refid, fss_company_id, name, activity, crypto_curr, crypto_curr_ntwk, bal_amnt, bal_units, bal_amnt_usd, incoming_balance, incoming_balance_units, incoming_balance_usd, outgoing_balance, outgoing_balance_units, outgoing_balance_usd, wallet_status, da_wallet_id, da_wallet_status, wallet_tracking_id, kill_switch_status, da_deactivation_status, da_reactivation_status, reject_reason, status, da_status, action_type, ledger_balance, ledger_balance_units, ledger_balance_usd, da_company_id, status_code, entity, created_by, created_date, last_updated_by, last_updated_date, last_update, wallet_dormancy, wallet_dormancy_reason, event_timestamp, comments, investor_id
-
-
-Write a postgre sql query to clientWalletId from transfer_dto column which is of jsonb object type from  Table : fssservices_fssdac.fss_dac_transfers, using this clientWalletId query Table : fssservices_fssdac.fss_dac_wallet to get wallet_refid from 
-table : fssservices_fssdac.fss_dac_wallet, using wallet_refid and asset_type, summarize the daily transactions in fssservices_fssdac.fss_dac_transfers and reconcile it with cloumn bal_amnt in Table : fssservices_fssdac.fss_dac_wallet_asset_balances, where one wallet - column : clientWalletId, can be mapped to multiple assets - Column : asset_type, and summarise it for daily blances and highlight any mismatch
+- HVPS - 1 CR's : 1 Prod (need e2e UVT) | 2 days
+- Vulnerability fix - 1 CR in DR: (can be verifed via pre & post commands) | 2 days 
+- Vulnerability fix - 1 CR in Prod: (can be verifed via pre & post commands) | 2 days 
+- Vulnerability fix - 2 CR's in SAN & HMC: (can be verifed via pre & post commands) | 2 days 
+- Vault upgrade - 2 CR's : DR env | 4 days
+- HVPS - 1 CR's : 1 DR (need e2e UVT, verify vault upgrade) | 2 days
+- Certificates - 6 CR's (SAN, Storage, HMC = 2 CR's prod and DR) | 3 days
+- Certificates - 2 CR's (LPAR's) | 4 days
+- Prod DR Firewall - 3 CR's (HMC, DR SG) | 4 days
+- Prod DR Firewall closure - 3 CR's | 3 days
+- Hardening of Unix - 2 CR's | 2 days
+- Image update  - 2 CR's | 2 days
+- COP integration - 3 CR's (prod, non prod,Splunk integration)| 3 days
